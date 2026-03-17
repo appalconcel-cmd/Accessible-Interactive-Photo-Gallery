@@ -1,0 +1,43 @@
+function initializeGallery() {
+
+    console.log("Gallery Loaded");
+
+    let figures = document.querySelectorAll("figure");
+
+    for (let i = 0; i < figures.length; i++) {
+
+        // Add tabindex for keyboard access
+        figures[i].setAttribute("tabindex", "0");
+
+        // Mouse events
+        figures[i].addEventListener("mouseover", function () {
+            previewImage(this);
+        });
+
+        figures[i].addEventListener("mouseleave", resetImage);
+
+        // Keyboard events
+        figures[i].addEventListener("focus", function () {
+            previewImage(this);
+        });
+
+        figures[i].addEventListener("blur", resetImage);
+    }
+}
+
+function previewImage(element) {
+
+    let display = document.getElementById("image-display");
+    let img = element.querySelector("img");
+
+    display.style.backgroundImage = "url('" + img.src + "')";
+    display.innerHTML = img.alt;
+}
+
+function resetImage() {
+
+    let display = document.getElementById("image-display");
+
+    display.style.backgroundImage = "none";
+    display.innerHTML = "Hover over an image below to display here.";
+}
